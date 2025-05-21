@@ -1,80 +1,91 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
+
+
 export default function QuizPage() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const nickname = searchParams.get("nickname");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const nickname = searchParams.get("nickname");
 
-    const [quizIndex, setQuizIndex] = useState(0);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [results, setResults] = useState([]);
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [results, setResults] = useState([]);
+  const [quizFinished, setQuizFinished] = useState(false);
 
-    const quizData = [
-        {
-            imageUrl: "/quiz_images/cat1.png",
-            question: "이 이미지는 AI가 만든 것일까요?",
-            options: ["AI가 만든 이미지", "실제 사진"],
-            answer: 0,
-        },
-        {
-            imageUrl: "/quiz_images/cat2.png",
-            question: "이 이미지는 AI가 만든 것일까요?",
-            options: ["AI가 만든 이미지", "실제 사진"],
-            answer: 0,
-        },
-        {
-            imageUrl: "/quiz_images/cat3.png",
-            question: "이 이미지는 AI가 만든 것일까요?",
-            options: ["AI가 만든 이미지", "실제 사진"],
-            answer: 0,
-        },
-        {
-            imageUrl: "/quiz_images/cat4.jpg",
-            question: "이 이미지는 AI가 만든 것일까요?",
-            options: ["AI가 만든 이미지", "실제 사진"],
-            answer: 1,
-        },
-        {
-            imageUrl: "/quiz_images/cat5.png",
-            question: "이 이미지는 AI가 만든 것일까요?",
-            options: ["AI가 만든 이미지", "실제 사진"],
-            answer: 0,
-        },
-    ];
+  const quizData = [
+    {
+      imageUrl: "/quiz_images/cat1.png",
+      question: "이 이미지는 AI가 만든 것일까요?",
+      options: ["AI가 만든 이미지", "실제 사진"],
+      answer: 0,
+    },
+    {
+      imageUrl: "/quiz_images/cat2.png",
+      question: "이 이미지는 AI가 만든 것일까요?",
+      options: ["AI가 만든 이미지", "실제 사진"],
+      answer: 0,
+    },
+    {
+      imageUrl: "/quiz_images/cat3.png",
+      question: "이 이미지는 AI가 만든 것일까요?",
+      options: ["AI가 만든 이미지", "실제 사진"],
+      answer: 0,
+    },
+    {
+      imageUrl: "/quiz_images/cat4.jpg",
+      question: "이 이미지는 AI가 만든 것일까요?",
+      options: ["AI가 만든 이미지", "실제 사진"],
+      answer: 1,
+    },
+    {
+      imageUrl: "/quiz_images/cat5.png",
+      question: "이 이미지는 AI가 만든 것일까요?",
+      options: ["AI가 만든 이미지", "실제 사진"],
+      answer: 0,
+    },
+  ];
 
-    const handleOptionChange = (index) => {
-        setSelectedOption(index);
+  const handleOptionChange = (index) => {
+    setSelectedOption(index);
+  };
+
+  const handleNextQuestion = () => {
+    if (selectedOption === null) {
+      alert("답변을 선택해주세요.");
+      return;
+    }
+
+    const isCorrect = selectedOption === quizData[quizIndex].answer;
+    const currentResult = {
+      question: quizData[quizIndex].question,
+      userAnswer: selectedOption,
+      correctAnswer: quizData[quizIndex].answer,
+      isCorrect,
     };
 
-    const handleNextQuestion = () => {
-        if (selectedOption === null) {
-            alert("답변을 선택해주세요.");
-            return;
-        }
+    const updatedResults = [...results, currentResult];
+    setResults(updatedResults);
 
-        const isCorrect = selectedOption === quizData[quizIndex].answer;
+    if (quizIndex < quizData.length - 1) {
+      setQuizIndex(quizIndex + 1);
+      setSelectedOption(null);
+    } else {
+      setQuizFinished(true); // 이후 useEffect에서 처리
+    }
+  };
 
-        const currentResult = {
-            question: quizData[quizIndex].question,
-            userAnswer: selectedOption,
-            correctAnswer: quizData[quizIndex].answer,
-            isCorrect,
-        };
-
-        const updatedResults = [...results, currentResult];
-        setResults(updatedResults);
-
-        if (quizIndex < quizData.length - 1) {
-            setQuizIndex(quizIndex + 1);
-            setSelectedOption(null);
-        } else {
-            sessionStorage.setItem("quizResult", JSON.stringify(updatedResults));
-            router.push("/result?nickname=" + nickname);
-        }
-    };
+  useEffect(() => {
+    if (quizFinished) {
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem("quizResult", JSON.stringify(results));
+      }
+      router.push("/result?nickname=" + nickname);
+    }
+  }, [quizFinished]);
 
     return (
         <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-8">
