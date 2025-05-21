@@ -12,12 +12,12 @@ export default function ResultClient() {
   const [imageSrc, setImageSrc] = useState("");
 
   const imageMap = {
-    0: "/result_images/result_0.png",
-    1: "/result_images/result_1.png",
-    2: "/result_images/result_2.png",
-    3: "/result_images/result_3.png",
-    4: "/result_images/result_4.png",
-    5: "/result_images/result_5.png",
+    0: "/result_images/result_0.webp",
+    1: "/result_images/result_1.webp",
+    2: "/result_images/result_2.webp",
+    3: "/result_images/result_3.webp",
+    4: "/result_images/result_4.webp",
+    5: "/result_images/result_5.webp",
   };
 
   useEffect(() => {

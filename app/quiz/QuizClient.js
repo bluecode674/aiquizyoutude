@@ -15,31 +15,31 @@ export default function QuizClient() {
 
   const quizData = [
     {
-      imageUrl: "/quiz_images/cat1.png",
+      imageUrl: "/quiz_images/cat1.webp",
       question: "이 이미지는 AI가 만든 것일까요?",
       options: ["AI가 만든 이미지", "실제 사진"],
       answer: 0,
     },
     {
-      imageUrl: "/quiz_images/cat2.png",
+      imageUrl: "/quiz_images/cat2.webp",
       question: "이 이미지는 AI가 만든 것일까요?",
       options: ["AI가 만든 이미지", "실제 사진"],
       answer: 0,
     },
     {
-      imageUrl: "/quiz_images/cat3.png",
+      imageUrl: "/quiz_images/cat3.webp",
       question: "이 이미지는 AI가 만든 것일까요?",
       options: ["AI가 만든 이미지", "실제 사진"],
       answer: 0,
     },
     {
-      imageUrl: "/quiz_images/cat4.jpg",
+      imageUrl: "/quiz_images/cat4.webp",
       question: "이 이미지는 AI가 만든 것일까요?",
       options: ["AI가 만든 이미지", "실제 사진"],
       answer: 1,
     },
     {
-      imageUrl: "/quiz_images/cat5.png",
+      imageUrl: "/quiz_images/cat5.webp",
       question: "이 이미지는 AI가 만든 것일까요?",
       options: ["AI가 만든 이미지", "실제 사진"],
       answer: 0,
