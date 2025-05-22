@@ -93,6 +93,17 @@ export default function ResultClient() {
         >
           다시 풀기
         </button>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            alert("링크가 복사되었습니다!");
+          }}
+          className="mt-4 bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300"
+        >
+          🔗 링크를 공유해 보세요
+        </button>
+
+
       </div>
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-500">
         © 2025 AI Quiz. All rights reserved. (feat. Ax-one)
