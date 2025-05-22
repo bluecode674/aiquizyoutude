@@ -95,7 +95,7 @@ export default function ResultClient() {
         </button>
         <button
           onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
+            navigator.clipboard.writeText("https://aiquizyoutude.vercel.app/");
             alert("링크가 복사되었습니다!");
           }}
           className="mt-4 bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300"
